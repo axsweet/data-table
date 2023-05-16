@@ -36,7 +36,7 @@ Add `extensions` option in your `config/admin.php` configuration file:
              'paging' => false,
              'lengthChange' => false,
              'searching' => false,
-             'ordering' => false,
+             'ordering' => true,
              'info' => false,
              'language' => 'English', // or Chinese
         ]
