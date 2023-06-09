@@ -16,12 +16,22 @@
         </tr>
     @endforeach
     </tbody>
+    <tfoot>
+
+    </tfoot>
+
 </table>
 
 <script>
     $(function () {
         $('#{{ $id }}').DataTable(
-            {!! $options !!}
+            @if(!empty($callBack))
+                {!! substr($options,0,-1) !!} ,
+                {!! $callBack !!}
+                }
+            @else
+                {!! $options !!}
+            @endif
         )
     })
 </script>

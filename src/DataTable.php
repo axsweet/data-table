@@ -30,6 +30,9 @@ class DataTable extends Widget implements Renderable
 
     protected $options = [];
 
+    protected $callBack = '';
+
+
     /**
      * Table constructor.
      *
@@ -38,7 +41,7 @@ class DataTable extends Widget implements Renderable
      * @param array $style
      * @param array $options
      */
-    public function __construct($headers = [], $rows = [], $style = [], $options = [])
+    public function __construct($headers = [], $rows = [], $style = [], $options = [], $callBack = '')
     {
         $global_options = (array)config('admin.extensions.data-table.options');
         $options = array_merge($global_options, $options);
@@ -47,6 +50,7 @@ class DataTable extends Widget implements Renderable
         $this->setRows($rows);
         $this->setStyle($style);
         $this->setOptions($options);
+        $this->setCallBack($callBack);
         $this->class('table dataTable ' . implode(' ', $this->style));
     }
 
@@ -113,6 +117,12 @@ class DataTable extends Widget implements Renderable
 
         return $this;
     }
+    public function setCallBack($callBack = [])
+    {
+        $this->callBack = $callBack;
+
+        return $this;
+    }
 
     /**
      * Render the table.
@@ -129,6 +139,7 @@ class DataTable extends Widget implements Renderable
             'style' => $this->style,
             'attributes' => $this->formatAttributes(),
             'options' => json_encode($this->options),
+            'callBack'=> $this->callBack
         ];
 
         return view($this->view, $vars)->render();
