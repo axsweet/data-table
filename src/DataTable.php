@@ -123,6 +123,8 @@ class DataTable extends Widget implements Renderable
      */
     public function render()
     {
+
+
         $vars = [
             'headers' => $this->headers,
             'rows' => $this->rows,
@@ -130,7 +132,15 @@ class DataTable extends Widget implements Renderable
             'attributes' => $this->formatAttributes(),
             'options' => json_encode($this->options),
         ];
-
+        if(str_ends_with(url()->current(),'check-in')){
+            $this->view = 'laravel-admin-data-table::check-in';
+        }else {
+            if (isset($this->options['id'])) {
+                if (str_starts_with($this->options['id'], 'history')) {
+                    $this->view = 'laravel-admin-data-table::check-in-history';
+                }
+            }
+        }
         return view($this->view, $vars)->render();
     }
 
